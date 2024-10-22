@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :buildings, only: [:index, :new] do
+  resources :buildings do
     collection do
       post :upload_csv
     end

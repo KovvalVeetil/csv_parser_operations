@@ -1,4 +1,14 @@
 <h1>Building List</h1>
+
+<%= link_to 'Upload New CSV File', new_building_path %>
+
+<%= form_with(url: buildings_path, method: :get, local: true) do %>
+  <div>
+    <%= label_tag :sort, 'Sort By:' %>
+    <%= select_tag :sort, options_for_select([['Name', 'name'], ['Height', 'height']], params[:sort]), { onchange: 'this.form.submit();' } %>
+  </div>
+<% end %>
+
 <table>
   <thead>
     <tr>
