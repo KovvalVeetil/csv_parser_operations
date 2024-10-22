@@ -27,4 +27,34 @@ class BuildingsController < ApplicationController
             Building.all
         end
     end
+
+    def edit
+        @building = Building.find(params[:id])
+    end
+
+    def show
+        @building = Building.find(params[:id])
+    end
+
+    def update
+        @building = Building.find(params[:id])
+        if @building.update(building_params)
+            redirect_to buildings_path, notice: 'Building was sucessfully updated'
+        else
+            puts @building.errors.full_messages
+            render :edit
+        end
+    end
+
+    def destroy
+        @building = Building.find(params[:id])
+        @building.destroy
+        redirect_to buildings_path, notice: 'Building was successfully deleted.'
+    end
+
+    private
+
+    def building_params
+        params.require(:building).permit(:name, :height)
+    end
 end

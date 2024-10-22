@@ -14,6 +14,7 @@
     <tr>
       <th>Building Name</th>
       <th>Building Height</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,10 @@
       <tr>
         <td><%= building.name %></td>
         <td><%= building.height %></td>
+        <td>
+            <%= link_to 'Edit', edit_building_path(building) %>
+            <%= button_to 'Delete', building_path(building), method: :delete, data: { confirm: 'Are you sure you want to delete this building?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
