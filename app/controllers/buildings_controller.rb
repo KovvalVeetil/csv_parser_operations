@@ -18,6 +18,13 @@ class BuildingsController < ApplicationController
     end
 
     def index
-        @buildings = Building.all
+        @buildings = case params[:sort]
+        when 'name'
+            Building.order(:name)
+        when 'height'
+            Building.order(:height)
+        else
+            Building.all
+        end
     end
 end
