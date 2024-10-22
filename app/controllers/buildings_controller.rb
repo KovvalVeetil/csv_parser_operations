@@ -18,21 +18,16 @@ class BuildingsController < ApplicationController
     end
 
     def index
-        @buildings = case params[:sort]
-        when 'name'
-            Building.order(:name)
-        when 'height'
-            Building.order(:height)
-        else
-            Building.all
-        end
+        @buildings = Building.all
+        @buildings = filter_buildings(@buildings)
+        @buildings = sort_buildings(@buildings)
+
+        @buildings = @buildings.page(params[:page]).per(5)
+
+        Rails.logger.debug "Final Buildings Query: #{@buildings.to_sql}"
     end
 
     def edit
-        @building = Building.find(params[:id])
-    end
-
-    def show
         @building = Building.find(params[:id])
     end
 
@@ -56,5 +51,24 @@ class BuildingsController < ApplicationController
 
     def building_params
         params.require(:building).permit(:name, :height)
+    end
+
+    def filter_buildings(buildings)
+        if params[:search].present?
+            buildings = buildings.where("name LIKE ?", "%#{params[:search]}%")
+            Rails.logger.debug "Filtered Buildings: #{buildings.to_sql}" # Log the filtered query
+        end
+        buildings
+    end
+
+    def sort_buildings(buildings)
+        case params[:sort]
+        when 'name'
+            buildings.order(:name)
+        when 'height'
+            buildings.order(:height)
+        else
+            buildings
+        end
     end
 end
