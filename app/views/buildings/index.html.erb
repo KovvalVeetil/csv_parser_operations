@@ -1,0 +1,17 @@
+<h1>Building List</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Building Name</th>
+      <th>Building Height</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @buildings.each do |building| %>
+      <tr>
+        <td><%= building.name %></td>
+        <td><%= building.height %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
