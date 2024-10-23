@@ -1,24 +1,42 @@
-# README
+# Building Management System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple web application for managing buildings using Ruby on Rails. This application allows users to create, read, update, and delete building records, as well as upload and parse CSV files containing building data.
 
-Things you may want to cover:
+## Table of Contents
 
-* Ruby version
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Contributing](#contributing)
 
-* System dependencies
+## Features
 
-* Configuration
+- Create, Read, Update, and Delete (CRUD) operations for building records.
+- Upload and parse CSV files to add multiple buildings at once.
+- Search and sort buildings by name or height.
+- Export building data to CSV format.
 
-* Database creation
+## Technologies Used
 
-* Database initialization
+- Ruby on Rails
+- SQLite (for development)
+- RSpec (for testing)
 
-* How to run the test suite
+## Installation
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+   ```bash
+   git clone https://github.com/yourusername/building_management_system.git
+   cd building_management_system
 
-* ...
+   bundle install
+
+   rails db:create
+   rails db:migrate
+
+   rails db:seed
+
+   rails server
+```
