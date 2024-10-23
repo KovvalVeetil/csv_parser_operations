@@ -1,3 +1,5 @@
+require 'csv'
+
 class BuildingsController < ApplicationController
     def new
     end
@@ -47,6 +49,14 @@ class BuildingsController < ApplicationController
         redirect_to buildings_path, notice: 'Building was successfully deleted.'
     end
 
+    def export
+        @buildings = Building.all
+
+        respond_to do |format|
+            format.csv { send_data generate_csv(@buildings), filename: "buildings-#{Date.today}.csv" }
+        end
+    end
+
     private
 
     def building_params
@@ -69,6 +79,15 @@ class BuildingsController < ApplicationController
             buildings.order(:height)
         else
             buildings
+        end
+    end
+
+    def generate_csv(buildings)
+        CSV.generate(headers: true) do |csv|
+            csv << ['Name', 'Height']
+            buildings.each do |building|
+                csv << [building.name, building.height]
+            end
         end
     end
 end
