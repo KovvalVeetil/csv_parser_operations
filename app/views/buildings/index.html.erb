@@ -4,10 +4,18 @@
 
 <%= form_with(url: buildings_path, method: :get, local: true) do %>
   <div>
+    <%= label_tag :search, 'Search:' %>
+    <%= text_field_tag :search, params[:search], placeholder: 'Enter building name' %>
+    <%= submit_tag 'Search' %>
+  </div>
+
+  <div>
     <%= label_tag :sort, 'Sort By:' %>
     <%= select_tag :sort, options_for_select([['Name', 'name'], ['Height', 'height']], params[:sort]), { onchange: 'this.form.submit();' } %>
   </div>
 <% end %>
+
+<%= link_to 'Export to CSV', export_buildings_path(format: :csv), class: 'btn' %>
 
 <table>
   <thead>
@@ -30,3 +38,12 @@
     <% end %>
   </tbody>
 </table>
+
+
+<% if @buildings.empty? %>
+  <tr>
+    <td colspan="3">No buildings found.</td>
+  </tr>
+<% end %>
+
+<%= paginate @buildings %>
